@@ -1,32 +1,55 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <base target="_top">
-  <style>
-    .submit-button {
-      display: block;
-      margin: 20px 0;
-      padding: 10px 20px;
-      background-color: #4285f4;
-      color: white;
-      border: none;
-      cursor: pointer;
-    }
-    iframe {
-      width: 100%;
-      height: 80vh;
-      border: none;
-    }
-  </style>
+<title>Feedback Survey</title>
+<script>
+
+	//Get the Query String and build new URL
+	var mySurveyURL = "https://docs.google.com/forms/d/e/1FAIpQLSeK2wvIQVLLdrsTMrm2KIvIxxhc-2LBR1EE1D6vns9A1EutSg/viewform?usp=pp_url//&entry.1741696511=_MEETING-NAME_&entry.817303419=_MEETING-DATE_&entry.2069395473=_MEETING-TIME_";
+
+	var queryString = new URLSearchParams(window.location.search)
+	var myMeetingName = queryString.get("MEETING-NAME");
+	var myMeetingDate = queryString.get("MEETING-DATE");
+	var myMeetingTime = queryString.get("MEETING-TIME");
+	var myMeetingURL = mySurveyURL.replace("_MEETING-NAME_", myMeetingName);
+ 	myMeetingURL = myMeetingURL.replace("_MEETING-DATE_", myMeetingDate);
+	myMeetingURL = myMeetingURL.replace("_MEETING-TIME_", myMeetingTime);
+	
+	function doSubmit() {
+		console.log("DOING SUBMIT");
+		alert("Did submit");
+		console.log("FORM IS", document.getElementById('google-form-iframe').contentWindow.document.forms[0]);
+	}
+	
+</script>
+<base target="_top">
+	<style>
+	.submit-button {
+	  display: block;
+	  margin: 20px 0;
+	  padding: 10px 20px;
+	  background-color: #4285f4;
+	  color: white;
+	  border: none;
+	  cursor: pointer;
+	}
+	iframe {
+	  width: 100%;
+	  height: 80vh;
+	  border: none;
+	}
+	</style>
+</base>
 </head>
 <body>
-  <button class="submit-button" onclick="submitForm()">Submit Form</button>
-  <iframe id="google-form" src="https://forms.gle/KEDWg2QZxpQy3n6a6"></iframe>
+
+  <button class="submit-button" onclick="javascript:doSubmit();">Submit Form</button>
+  <iframe id="google-form-iframe" src=""></iframe>
   
   <script>
-    function submitForm() {
-      document.getElementById('google-form').contentWindow.document.forms[0].submit();
-    }
+  	document.getElementById('google-form-iframe').src = myMeetingURL;
+	//document.getElementById('google-form-iframe').contentWindow.document.forms[0].submit();
+	
   </script>
 </body>
 </html>
